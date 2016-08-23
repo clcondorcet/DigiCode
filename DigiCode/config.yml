@@ -1,0 +1,9 @@
+#permission pour creer un digicode
+#la permission est: code.create
+#true / false
+permissionsforcreate: 'false'
+
+#permission pour enlever un digicode
+#la permission est: code.delete
+#true / false
+permissionsfordelete: 'true'

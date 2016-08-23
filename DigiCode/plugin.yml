@@ -1,0 +1,10 @@
+name: Code
+main: ketao.eu.org.code.Main
+version: 0.1
+description: code
+author: clcondorcet
+
+commands:
+  code:
+    description: commande principale du plugin
+    usage: /code
