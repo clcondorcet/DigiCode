@@ -30,10 +30,14 @@ public class PlayerListener implements Listener{
 		if(e.getLine(0).equalsIgnoreCase("[code]")){
 			if(Main.permscrea == "true"){
 				if(!e.getPlayer().hasPermission("code.create")){
-					e.getPlayer().sendMessage(ChatColor.RED + "Tu n'as pas la permission");
+					File fichierc = new File(Main.path + "/config.yml");
+					FileConfiguration configc = YamlConfiguration.loadConfiguration(fichierc);
+					e.getPlayer().sendMessage(ChatColor.RED + configc.getString("noPermission"));
 					return;
 				}
 			}
+		File fichierc = new File(Main.path + "/config.yml");
+		FileConfiguration configc = YamlConfiguration.loadConfiguration(fichierc);
 		Location loc = e.getBlock().getLocation();
 		Location locA = loc;
 		locA.setX(locA.getBlockX() + 1);
@@ -59,11 +63,11 @@ public class PlayerListener implements Listener{
 			i = i + 1;
 		}
 		if(i == 0){
-			e.getPlayer().sendMessage(ChatColor.RED + "le digicode doit être à côter d'un block de fer");
+			e.getPlayer().sendMessage(ChatColor.RED + configc.getString("needironblock"));
 			return;
 		}
 		if(i >= 2){
-			e.getPlayer().sendMessage(ChatColor.RED + "le digicode ne doit pas être à coter de plus d'un block de fer");
+			e.getPlayer().sendMessage(ChatColor.RED + configc.getString("oneironblock"));
 			return;
 		}
 			String st = e.getLine(1);
@@ -73,7 +77,7 @@ public class PlayerListener implements Listener{
 				e.setLine(1, ChatColor.RED + "ERREUR");
 				e.setLine(2, ChatColor.RED + "");
 				e.setLine(3, ChatColor.RED + "");
-				e.getPlayer().sendMessage(ChatColor.RED + "le mot de pass doit comporter 4 chiffres");
+				e.getPlayer().sendMessage(ChatColor.RED + configc.getString("passwordoffour"));
 				return;
 			}
 			try{
@@ -83,7 +87,7 @@ public class PlayerListener implements Listener{
 				e.setLine(1, ChatColor.RED + "ERREUR");
 				e.setLine(2, ChatColor.RED + "");
 				e.setLine(3, ChatColor.RED + "");
-				e.getPlayer().sendMessage(ChatColor.RED + "le mot de pass doit comporter 4 chiffres");
+				e.getPlayer().sendMessage(ChatColor.RED + configc.getString("passwordoffour"));
 				return;
 			}
 			File fichier = new File(Main.path + "/code.yml");
@@ -95,7 +99,7 @@ public class PlayerListener implements Listener{
 					e.setLine(1, ChatColor.RED + "ERREUR");
 					e.setLine(2, ChatColor.RED + "");
 					e.setLine(3, ChatColor.RED + "");
-					e.getPlayer().sendMessage(ChatColor.RED + "le nom existe déja");
+					e.getPlayer().sendMessage(ChatColor.RED + configc.getString("nameexist"));
 					return;
 				}
 			}catch(Exception ex){}
@@ -110,7 +114,7 @@ public class PlayerListener implements Listener{
 			e.setLine(0, ChatColor.AQUA + "Code");
 			e.setLine(1, ChatColor.AQUA + "_ _ _ _");
 			e.setLine(2, name);
-			e.setLine(3, ChatColor.RED + "Accès Refusé");
+			e.setLine(3, ChatColor.RED + configc.getString("accessno"));
 		}
 			
 		
@@ -123,6 +127,8 @@ public class PlayerListener implements Listener{
 		}catch(Exception ex){return;}
 		try{
 		if (((String)Code.status.get(e.getPlayer())).equalsIgnoreCase("delete")){
+			File fichierc = new File(Main.path + "/config.yml");
+			FileConfiguration configc = YamlConfiguration.loadConfiguration(fichierc);
 			if(e.getClickedBlock().getType().equals(Material.WALL_SIGN) || e.getClickedBlock().getType().equals(Material.SIGN) || e.getClickedBlock().getType().equals(Material.SIGN_POST)){
 				Sign s = (Sign) e.getClickedBlock().getState();
 				if(s.getLine(0).equals(ChatColor.AQUA + "Code")){
@@ -138,12 +144,13 @@ public class PlayerListener implements Listener{
 					}
 					e.getClickedBlock().setType(Material.AIR);
 					Code.status.put(e.getPlayer(), "");
-					e.getPlayer().sendMessage(ChatColor.RED + "Digicode suprimer ! vous êtes sortis du mode delete");
+					e.getPlayer().sendMessage(ChatColor.RED + configc.getString("Digicodedelete"));
+					e.getPlayer().sendMessage(ChatColor.RED + configc.getString("quitmodedelete"));
 					return;
 				}
 			}
 			e.setCancelled(true);
-			e.getPlayer().sendMessage(ChatColor.RED + "Pour sortir du mode delete faire /code delete");
+			e.getPlayer().sendMessage(ChatColor.RED + configc.getString("docodedelete"));
 			return;
 		}
 		}catch(Exception ex){}
@@ -214,7 +221,9 @@ public class PlayerListener implements Listener{
 				}else{
 					s.setLine(0, ChatColor.RED + "CODE");
 					s.setLine(1, ChatColor.RED + "ERREUR");
-					e.getPlayer().sendMessage(ChatColor.RED + "une erreur est survenue");
+					File fichierc = new File(Main.path + "/config.yml");
+					FileConfiguration configc = YamlConfiguration.loadConfiguration(fichierc);
+					e.getPlayer().sendMessage(ChatColor.RED + configc.getString("error"));
 				}
 			}
 		}
@@ -231,6 +240,8 @@ public class PlayerListener implements Listener{
 	}
 	@EventHandler
 	public void invclick(InventoryClickEvent e){
+		File fichierc = new File(Main.path + "/config.yml");
+		FileConfiguration configc = YamlConfiguration.loadConfiguration(fichierc);
 		if(e.getInventory().getSize() == 45){
 			int cli = e.getSlot();
 // 1
@@ -243,7 +254,7 @@ public class PlayerListener implements Listener{
 							if(e.getInventory().getItem(33).equals(null)){}
 							try{
 								if(e.getInventory().getItem(23).equals(null)){}
-								e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+								e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 							}catch(Exception ex){
 								e.getInventory().setItem(23, e.getInventory().getItem(10));}
 						}catch(Exception ex){
@@ -262,7 +273,7 @@ public class PlayerListener implements Listener{
 							if(e.getInventory().getItem(33).equals(null)){}
 							try{
 								if(e.getInventory().getItem(23).equals(null)){}
-								e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+								e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 							}catch(Exception ex){
 								e.getInventory().setItem(23, e.getInventory().getItem(11));}
 						}catch(Exception ex){
@@ -281,7 +292,7 @@ public class PlayerListener implements Listener{
 							if(e.getInventory().getItem(33).equals(null)){}
 							try{
 								if(e.getInventory().getItem(23).equals(null)){}
-								e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+								e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 							}catch(Exception ex){
 								e.getInventory().setItem(23, e.getInventory().getItem(12));}
 						}catch(Exception ex){
@@ -300,7 +311,7 @@ public class PlayerListener implements Listener{
 							if(e.getInventory().getItem(33).equals(null)){}
 							try{
 								if(e.getInventory().getItem(23).equals(null)){}
-								e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+								e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 							}catch(Exception ex){
 								e.getInventory().setItem(23, e.getInventory().getItem(19));}
 						}catch(Exception ex){
@@ -319,7 +330,7 @@ public class PlayerListener implements Listener{
 							if(e.getInventory().getItem(33).equals(null)){}
 							try{
 								if(e.getInventory().getItem(23).equals(null)){}
-								e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+								e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 							}catch(Exception ex){
 								e.getInventory().setItem(23, e.getInventory().getItem(20));}
 						}catch(Exception ex){
@@ -338,7 +349,7 @@ public class PlayerListener implements Listener{
 							if(e.getInventory().getItem(33).equals(null)){}
 							try{
 								if(e.getInventory().getItem(23).equals(null)){}
-								e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+								e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 							}catch(Exception ex){
 								e.getInventory().setItem(23, e.getInventory().getItem(21));}
 						}catch(Exception ex){
@@ -357,7 +368,7 @@ public class PlayerListener implements Listener{
 							if(e.getInventory().getItem(33).equals(null)){}
 							try{
 								if(e.getInventory().getItem(23).equals(null)){}
-								e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+								e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 							}catch(Exception ex){
 								e.getInventory().setItem(23, e.getInventory().getItem(28));}
 						}catch(Exception ex){
@@ -376,7 +387,7 @@ public class PlayerListener implements Listener{
 								if(e.getInventory().getItem(33).equals(null)){}
 								try{
 									if(e.getInventory().getItem(23).equals(null)){}
-									e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+									e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 								}catch(Exception ex){
 									e.getInventory().setItem(23, e.getInventory().getItem(29));}
 							}catch(Exception ex){
@@ -395,7 +406,7 @@ public class PlayerListener implements Listener{
 								if(e.getInventory().getItem(33).equals(null)){}
 								try{
 									if(e.getInventory().getItem(23).equals(null)){}
-									e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+									e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 								}catch(Exception ex){
 									e.getInventory().setItem(23, e.getInventory().getItem(30));}
 							}catch(Exception ex){
@@ -414,7 +425,7 @@ public class PlayerListener implements Listener{
 								if(e.getInventory().getItem(33).equals(null)){}
 								try{
 									if(e.getInventory().getItem(23).equals(null)){}
-									e.getWhoClicked().sendMessage(ChatColor.RED + "Il ny à que 4 chiffres disponnible !");
+									e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("nuberdispo"));
 								}catch(Exception ex){
 									e.getInventory().setItem(23, e.getInventory().getItem(38));}
 							}catch(Exception ex){
@@ -452,7 +463,7 @@ public class PlayerListener implements Listener{
 					config.save(Main.path + "/code.yml");
 					
 					}catch(Exception ex){
-						e.getWhoClicked().sendMessage(ChatColor.RED + "vous n'avez pas remplis les 4 chiffres");
+						e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("passwordoffour"));
 						e.setCancelled(true);
 						return;
 					}
@@ -460,7 +471,7 @@ public class PlayerListener implements Listener{
 					int codeenteri = Integer.parseInt(config.getString("coden"));
 					if(codei == codeenteri){
 						Sign s = (Sign) Code.loc.get(e.getWhoClicked()).getBlock().getState();
-						s.setLine(3, ChatColor.GREEN + "Accès Accepté");
+						s.setLine(3, ChatColor.GREEN + configc.getString("accessyes"));
 						s.update();
 						e.getWhoClicked().closeInventory();
 
@@ -496,7 +507,7 @@ public class PlayerListener implements Listener{
 						}
 						return;
 					}else{
-						e.getWhoClicked().sendMessage(ChatColor.RED + "mauvais mot de pass");
+						e.getWhoClicked().sendMessage(ChatColor.RED + configc.getString("wrongpass"));
 						e.getWhoClicked().closeInventory();
 						return;
 					}

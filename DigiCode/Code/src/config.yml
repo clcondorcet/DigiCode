@@ -1,9 +1,86 @@
-#permission pour creer un digicode
-#la permission est: code.create
-#true / false
-permissionsforcreate: 'false'
+#DigiCode by clcondorcet
+#version 0.3
+####################################
+#           permissions            #
+####################################
+#en : you have to reload for this options
+#fr : tu a besoin de reload pour ces options
+#code reload == code.reload
 
-#permission pour enlever un digicode
-#la permission est: code.delete
+#permission for create a DigiCode
+#the permission is: code.create
 #true / false
-permissionsfordelete: 'true'
+permissionsforcreate: "false"
+
+#permission for delete a DigiCode
+#the permission is: code.delete
+#true / false
+permissionsfordelete: "true"
+
+
+####################################
+#            messages              #
+####################################
+#sorry m'y english is bad.
+
+
+#en : you d'ont have to reload for the messages
+#fr : vous n'avez pas à reload pour les messages
+
+noPermission: "Tu n'as pas la permission"
+
+#when reload
+reload: "Plugin rechargé !"
+
+#when you delete a DigiCode
+Digicodedelete: "Le digicode a été suprimé"
+
+#when you enter in the mode delete
+entermodedelete: "Tu est en mode de supression"
+#instructions of mode delete
+instructmodedelete: "Appuie sur le digicode que tu veut enlever"
+#when you quit the mode delete
+quitmodedelete: "Tu n'est plus en mode de supression"
+
+#fr: "Le digicode doit être à côter d'un block de fer"
+#en: "The digicode have to be on the next of a block of iron"
+needironblock: "Le digicode doit être à côter d'un block de fer"
+
+#fr: "Le digicode ne doit pas être à coter de plus d'un block de fer"
+#en: "The digicode have'nt to be on the next of multiple block of iron"
+oneironblock: "Le digicode ne doit pas être à coter de plus d'un block de fer"
+
+#fr: "Le mot de passe doit comporter 4 chiffres"
+#en: "The password has to contain 4 figures"
+passwordoffour: "Le mot de passe doit comporter 4 chiffres"
+
+#fr: "Il n'y a que 4 chiffres disponnibles"
+#en: "4 figures are Disponnibles"
+nuberdispo: "Il n'y a que 4 chiffres disponnibles"
+
+#fr: "Le nom existe déja"
+#en: "The name name already exist"
+nameexist: "Le nom existe déja"
+
+#fr: "Pour sortir du mode delete faire /code delete"
+#en: "For exit the mode delete you have to do /code delete"
+docodedelete: "Pour sortir du mode delete faire /code delete"
+
+#fr: "Mauvais mot de passe !"
+#en: "Wrong password !"
+wrongpass: "Mauvais mot de passe !"
+
+#error message
+error: "une erreur est survenue"
+
+
+
+#on the pannel:
+
+#fr: "Accès Refusé"
+#en: "access denied"
+accessno: "Accès Refusé"
+
+#fr: "Accès Accepté"
+#en: "access granted"
+accessyes: "Accès Accepté"
