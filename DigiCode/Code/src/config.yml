@@ -1,5 +1,6 @@
 #DigiCode by clcondorcet
-#version 0.3
+#version 0.4
+#game version: 1.8+ / 1.9+ / 1.10
 ####################################
 #           permissions            #
 ####################################
